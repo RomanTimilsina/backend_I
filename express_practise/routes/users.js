@@ -7,11 +7,18 @@ router.get('/', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.render("users/new")
+  res.render("users/new", {firstName:"Kyle"})
 })
 
 router.post('/', (req, res) => {
-  res.send("Create User")
+  const isValid = true
+  if(isValid){
+    users.push({firstName : req.body.firstName})
+    res.redirect(`users/${users.length - 1}`)
+  } else {
+    console.log("Error")
+    res.render("users/new", { firstName: req.body.firstName })
+  }
 })
 
 router
@@ -40,5 +47,8 @@ function logger(req,res,next){
 }
 
 module.exports = router
+
+
+
 
 

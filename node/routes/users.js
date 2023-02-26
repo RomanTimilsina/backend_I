@@ -7,16 +7,24 @@ router.get('/', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.send("users new")
+  res.render("users/new")
 })
 
-router.post('/:id', (req,res,next) => {
-  res.send('Create User')
+router.post('/', (req,res,next) => {
+  const isValid = false;
+  if(isValid){
+    users.push({ firstName: req.body.firstName })
+    res.redirect(`users/${users.length - 1}`)
+  } else {
+    console.log("Error")
+    res.render("users/new", { firstName : req.body.firstName })
+  }
+  
 })
 
 router.route("/:id")
 .get((req, res) => {
-  //console.log(req.user)
+  console.log(req.user)
   res.send(`Get user with id ${req.params.id}`)
 })
 .put((req,res) => {
@@ -29,6 +37,7 @@ router.route("/:id")
 const users = [{name:"Kyle"}, {name:"Sally"}]
 router.param('id',(req,res,next,id) => {
   req.user = users[id]
+  console.log(users)
   next()
 })
 
