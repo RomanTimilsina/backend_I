@@ -8,12 +8,23 @@ router.get('/', (req,res) => {
 })
 
 router.get("/new",(req,res) => {
-  
-  res.send("Create new user")
+  res.render( 'users/new' )
+})
+
+router.post("/", (req,res) => {
+  const isValid = true
+  if(isValid){
+    users.push({firstName:req.body.firstName})
+    res.redirect(`users/${users.length - 1}`)
+  } else {
+    console.log("Error")
+    res.render( 'users/new', { firstName : req.body.firstName } )
+  }
+ 
 })
 
 router.get("/:id", (req,res) => {
-  //console.log(req.user)
+  console.log(req.user)
   res.send(`Get user with id ${req.params.id}`)
 })
 
