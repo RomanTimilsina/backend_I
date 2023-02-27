@@ -6,7 +6,27 @@ router.get('/', (req,res) => {
 })
 
 router.get("/new",(req,res) => {
+  
   res.send("Create new user")
+})
+
+router.get("/:id", (req,res) => {
+  console.log(req.user)
+  res.send(`Get user with id ${req.params.id}`)
+})
+
+router.put("/:id", (req,res) => {
+  res.send(`Update user with id ${req.params.id}`)
+})
+
+router.delete("/:id",(req,res) => {
+  res.send(`delete user with id ${req.params.id}`)
+})
+
+const users = [{name:"Kyle"}, {name:"Sally"}]
+router.param("id",(req,res,next,id) => {
+  req.user = Object.values(users[id])
+  next()
 })
 
 module.exports = router
