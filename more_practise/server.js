@@ -10,4 +10,6 @@ app.get('/', (req,res) => {
 const userRouter = require("./routes/users.js")
 app.use("/users", userRouter)
 
+
+
 app.listen(3000)

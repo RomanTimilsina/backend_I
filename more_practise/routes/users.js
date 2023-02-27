@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
 
+router.use(logger)
+
 router.get('/', (req,res) => {
   res.send("Get user")
 })
@@ -11,7 +13,7 @@ router.get("/new",(req,res) => {
 })
 
 router.get("/:id", (req,res) => {
-  console.log(req.user)
+  //console.log(req.user)
   res.send(`Get user with id ${req.params.id}`)
 })
 
@@ -28,5 +30,10 @@ router.param("id",(req,res,next,id) => {
   req.user = Object.values(users[id])
   next()
 })
+
+function logger(req,res,next){
+  console.log(req.originalUrl)
+  next()
+}
 
 module.exports = router
